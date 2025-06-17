@@ -35,3 +35,52 @@ spring:
             - Path=/api-docs/auth
           filters:
             - RewritePath=/api-docs/auth,/v3/api-docs
+
+        # Route for /api/medical-records/** to medical-records-service
+        - id: medical-records-service-route
+          uri: http://medical-records-service:4006 # Assuming gRPC, but gateway usually handles HTTP. This might need adjustment if services are gRPC only.
+          predicates:
+            - Path=/api/medical-records/**
+          filters:
+            - StripPrefix=1
+            # - JwtValidation # Assuming new services also require JWT validation
+
+        # Route for /api/doctors/** to doctor-management-service
+        - id: doctor-management-service-route
+          uri: http://doctor-management-service:4007
+          predicates:
+            - Path=/api/doctors/**
+          filters:
+            - StripPrefix=1
+            # - JwtValidation
+
+        # Route for /api/appointments/** to appointment-scheduling-service
+        - id: appointment-scheduling-service-route
+          uri: http://appointment-scheduling-service:4008
+          predicates:
+            - Path=/api/appointments/**
+          filters:
+            - StripPrefix=1
+            # - JwtValidation
+
+        # Routes for API Docs of new services
+        - id: api-docs-medical-records-route
+          uri: http://medical-records-service:4006
+          predicates:
+            - Path=/api-docs/medical-records
+          filters:
+            - RewritePath=/api-docs/medical-records,/v3/api-docs
+
+        - id: api-docs-doctor-management-route
+          uri: http://doctor-management-service:4007
+          predicates:
+            - Path=/api-docs/doctor-management
+          filters:
+            - RewritePath=/api-docs/doctor-management,/v3/api-docs
+
+        - id: api-docs-appointment-scheduling-route
+          uri: http://appointment-scheduling-service:4008
+          predicates:
+            - Path=/api-docs/appointment-scheduling
+          filters:
+            - RewritePath=/api-docs/appointment-scheduling,/v3/api-docs

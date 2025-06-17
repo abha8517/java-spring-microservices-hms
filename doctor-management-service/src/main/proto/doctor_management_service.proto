@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package com.pm.doctormanagementservice;
+
+option java_multiple_files = true;
+option java_package = "com.pm.doctormanagementservice.grpc";
+option java_outer_classname = "DoctorManagementServiceProto";
+
+service DoctorManagementService {
+  rpc RegisterDoctor(RegisterDoctorRequest) returns (DoctorResponse);
+  rpc GetDoctor(GetDoctorRequest) returns (DoctorResponse);
+  rpc UpdateDoctor(UpdateDoctorRequest) returns (DoctorResponse);
+  rpc ListDoctors(ListDoctorsRequest) returns (ListDoctorsResponse);
+}
+
+message Doctor {
+  string id = 1;
+  string name = 2;
+  string specialization = 3;
+  string contact_info = 4;
+  string created_at = 5;
+  string updated_at = 6;
+}
+
+message RegisterDoctorRequest {
+  string name = 1;
+  string specialization = 2;
+  string contact_info = 3;
+}
+
+message GetDoctorRequest {
+  string id = 1;
+}
+
+message UpdateDoctorRequest {
+  string id = 1;
+  string name = 2;
+  string specialization = 3;
+  string contact_info = 4;
+}
+
+message ListDoctorsRequest {
+  // Potentially add filters like specialization
+}
+
+message DoctorResponse {
+  Doctor doctor = 1;
+}
+
+message ListDoctorsResponse {
+  repeated Doctor doctors = 1;
+}

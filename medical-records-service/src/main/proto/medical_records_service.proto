@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package com.pm.medicalrecordservice;
+
+option java_multiple_files = true;
+option java_package = "com.pm.medicalrecordservice.grpc";
+option java_outer_classname = "MedicalRecordServiceProto";
+
+service MedicalRecordService {
+  rpc CreateMedicalRecord(CreateMedicalRecordRequest) returns (MedicalRecordResponse);
+  rpc GetMedicalRecord(GetMedicalRecordRequest) returns (MedicalRecordResponse);
+  rpc UpdateMedicalRecord(UpdateMedicalRecordRequest) returns (MedicalRecordResponse);
+}
+
+message MedicalRecord {
+  string id = 1;
+  string patient_id = 2;
+  string record_details = 3; // Could be JSON or a more structured message
+  string created_at = 4;
+  string updated_at = 5;
+}
+
+message CreateMedicalRecordRequest {
+  string patient_id = 1;
+  string record_details = 2;
+}
+
+message GetMedicalRecordRequest {
+  string id = 1;
+}
+
+message UpdateMedicalRecordRequest {
+  string id = 1;
+  string record_details = 2;
+}
+
+message MedicalRecordResponse {
+  MedicalRecord medical_record = 1;
+}

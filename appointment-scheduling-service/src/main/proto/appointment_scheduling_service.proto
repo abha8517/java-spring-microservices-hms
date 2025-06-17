@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+package com.pm.appointmentschedulingservice;
+
+option java_multiple_files = true;
+option java_package = "com.pm.appointmentschedulingservice.grpc";
+option java_outer_classname = "AppointmentSchedulingServiceProto";
+
+service AppointmentSchedulingService {
+  rpc ScheduleAppointment(ScheduleAppointmentRequest) returns (AppointmentResponse);
+  rpc GetAppointment(GetAppointmentRequest) returns (AppointmentResponse);
+  rpc UpdateAppointment(UpdateAppointmentRequest) returns (AppointmentResponse);
+  rpc CancelAppointment(CancelAppointmentRequest) returns (AppointmentResponse); // Or a specific CancelResponse
+  rpc ListAppointmentsForPatient(ListAppointmentsForPatientRequest) returns (ListAppointmentsResponse);
+  rpc ListAppointmentsForDoctor(ListAppointmentsForDoctorRequest) returns (ListAppointmentsResponse);
+}
+
+message Appointment {
+  string id = 1;
+  string patient_id = 2;
+  string doctor_id = 3;
+  string appointment_time = 4; // ISO 8601 format
+  string status = 5; // e.g., SCHEDULED, CANCELLED, COMPLETED
+  string notes = 6;
+  string created_at = 7;
+  string updated_at = 8;
+}
+
+message ScheduleAppointmentRequest {
+  string patient_id = 1;
+  string doctor_id = 2;
+  string appointment_time = 3;
+  string notes = 4;
+}
+
+message GetAppointmentRequest {
+  string id = 1;
+}
+
+message UpdateAppointmentRequest {
+  string id = 1;
+  string appointment_time = 2;
+  string status = 3;
+  string notes = 4;
+}
+
+message CancelAppointmentRequest {
+  string id = 1;
+}
+
+message ListAppointmentsForPatientRequest {
+  string patient_id = 1;
+  // Potentially add date range filters
+}
+
+message ListAppointmentsForDoctorRequest {
+  string doctor_id = 1;
+  // Potentially add date range filters
+}
+
+message AppointmentResponse {
+  Appointment appointment = 1;
+}
+
+message ListAppointmentsResponse {
+  repeated Appointment appointments = 1;
+}

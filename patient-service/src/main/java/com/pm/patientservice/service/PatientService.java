@@ -5,6 +5,10 @@ import com.pm.patientservice.dto.PatientResponseDTO;
 import com.pm.patientservice.exception.EmailAlreadyExistsException;
 import com.pm.patientservice.exception.PatientNotFoundException;
 import com.pm.patientservice.grpc.BillingServiceGrpcClient;
+import com.pm.patientservice.grpc.MedicalRecordServiceGrpcClient;
+import com.pm.patientservice.grpc.AppointmentSchedulingServiceGrpcClient;
+import com.pm.medicalrecordservice.grpc.MedicalRecordGrpc;
+import com.pm.appointmentschedulingservice.grpc.AppointmentGrpc;
 import com.pm.patientservice.kafka.KafkaProducer;
 import com.pm.patientservice.mapper.PatientMapper;
 import com.pm.patientservice.model.Patient;
@@ -20,13 +24,19 @@ public class PatientService {
   private final PatientRepository patientRepository;
   private final BillingServiceGrpcClient billingServiceGrpcClient;
   private final KafkaProducer kafkaProducer;
+    private final MedicalRecordServiceGrpcClient medicalRecordClient;
+    private final AppointmentSchedulingServiceGrpcClient appointmentClient;
 
   public PatientService(PatientRepository patientRepository,
       BillingServiceGrpcClient billingServiceGrpcClient,
-      KafkaProducer kafkaProducer) {
+      KafkaProducer kafkaProducer,
+                                MedicalRecordServiceGrpcClient medicalRecordClient,
+                                AppointmentSchedulingServiceGrpcClient appointmentClient) {
     this.patientRepository = patientRepository;
     this.billingServiceGrpcClient = billingServiceGrpcClient;
     this.kafkaProducer = kafkaProducer;
+        this.medicalRecordClient = medicalRecordClient;
+        this.appointmentClient = appointmentClient;
   }
 
   public List<PatientResponseDTO> getPatients() {
@@ -77,5 +87,16 @@ public class PatientService {
 
   public void deletePatient(UUID id) {
     patientRepository.deleteById(id);
+  }
+
+  public PatientResponseDTO getPatientById(UUID id) {
+    Patient patient = patientRepository.findById(id).orElseThrow(
+        () -> new PatientNotFoundException("Patient not found with ID: " + id));
+        PatientResponseDTO patientResponseDTO = PatientMapper.toDTO(patient);
+        List<MedicalRecordGrpc> records = medicalRecordClient.getMedicalRecordsForPatient(id.toString());
+        List<AppointmentGrpc> appointments = appointmentClient.getAppointmentsForPatient(id.toString());
+        patientResponseDTO.setMedicalRecords(records);
+        patientResponseDTO.setAppointments(appointments);
+    return patientResponseDTO;
   }
 }
