@@ -1,7 +1,5 @@
 package com.pm.patientservice.service;
 
-import com.pm.appointmentschedulingservice.grpc.Appointment;
-import com.pm.medicalrecordservice.grpc.MedicalRecord;
 import com.pm.patientservice.dto.PatientRequestDTO;
 import com.pm.patientservice.dto.PatientResponseDTO;
 import com.pm.patientservice.exception.EmailAlreadyExistsException;
@@ -9,8 +7,8 @@ import com.pm.patientservice.exception.PatientNotFoundException;
 import com.pm.patientservice.grpc.BillingServiceGrpcClient;
 import com.pm.patientservice.grpc.MedicalRecordServiceGrpcClient;
 import com.pm.patientservice.grpc.AppointmentSchedulingServiceGrpcClient;
-//import com.pm.medicalrecordservice.grpc.MedicalRecordGrpc;
-//import com.pm.appointmentschedulingservice.grpc.AppointmentGrpc;
+import com.pm.medicalrecordservice.grpc.MedicalRecordGrpc;
+import com.pm.appointmentschedulingservice.grpc.AppointmentGrpc;
 import com.pm.patientservice.kafka.KafkaProducer;
 import com.pm.patientservice.mapper.PatientMapper;
 import com.pm.patientservice.model.Patient;
@@ -95,8 +93,8 @@ public class PatientService {
     Patient patient = patientRepository.findById(id).orElseThrow(
         () -> new PatientNotFoundException("Patient not found with ID: " + id));
         PatientResponseDTO patientResponseDTO = PatientMapper.toDTO(patient);
-        List<MedicalRecord> records = medicalRecordClient.getMedicalRecordsForPatient(id.toString());
-        List<Appointment> appointments = appointmentClient.getAppointmentsForPatient(id.toString());
+        List<MedicalRecordGrpc> records = medicalRecordClient.getMedicalRecordsForPatient(id.toString());
+        List<AppointmentGrpc> appointments = appointmentClient.getAppointmentsForPatient(id.toString());
         patientResponseDTO.setMedicalRecords(records);
         patientResponseDTO.setAppointments(appointments);
     return patientResponseDTO;

@@ -1,10 +1,9 @@
 package com.pm.patientservice.grpc;
 
-import com.pm.doctormanagementservice.grpc.Doctor;
 import com.pm.doctormanagementservice.grpc.DoctorManagementServiceGrpc;
 import com.pm.doctormanagementservice.grpc.GetDoctorRequest; // Generated
 import com.pm.doctormanagementservice.grpc.DoctorResponse; // Generated
-//import com.pm.doctormanagementservice.grpc.DoctorGrpc; // Expected name
+import com.pm.doctormanagementservice.grpc.Doctor; // Corrected name
 
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.stereotype.Service;

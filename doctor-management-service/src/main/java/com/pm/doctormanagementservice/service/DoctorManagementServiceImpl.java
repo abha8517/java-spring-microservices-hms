@@ -9,10 +9,9 @@ import com.pm.doctormanagementservice.grpc.UpdateDoctorRequest;
 import com.pm.doctormanagementservice.grpc.ListDoctorsRequest;
 import com.pm.doctormanagementservice.grpc.DoctorResponse;
 import com.pm.doctormanagementservice.grpc.ListDoctorsResponse;
-//import com.pm.doctormanagementservice.grpc.Doctor; // Corrected to match proto definition
+import com.pm.doctormanagementservice.grpc.Doctor; // Corrected to match proto definition
 
 import io.grpc.stub.StreamObserver;
-import net.devh.boot.grpc.server.service.GrpcService;
 import org.lognet.springboot.grpc.GRpcService; // Updated import for GrpcService
 import java.time.LocalDateTime;
 import java.util.UUID;

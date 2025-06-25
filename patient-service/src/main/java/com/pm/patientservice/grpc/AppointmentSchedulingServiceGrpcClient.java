@@ -1,10 +1,9 @@
 package com.pm.patientservice.grpc;
 
-import com.pm.appointmentschedulingservice.grpc.Appointment;
 import com.pm.appointmentschedulingservice.grpc.AppointmentSchedulingServiceGrpc;
 import com.pm.appointmentschedulingservice.grpc.ListAppointmentsForPatientRequest; // Generated
 import com.pm.appointmentschedulingservice.grpc.ListAppointmentsResponse; // Generated
-//import com.pm.appointmentschedulingservice.grpc.AppointmentGrpc; // Expected name
+import com.pm.appointmentschedulingservice.grpc.Appointment; // Corrected name
 
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.stereotype.Service;

@@ -1,10 +1,9 @@
 package com.pm.patientservice.grpc;
 
-import com.pm.medicalrecordservice.grpc.MedicalRecord;
 import com.pm.medicalrecordservice.grpc.MedicalRecordServiceGrpc;
 import com.pm.medicalrecordservice.grpc.GetMedicalRecordRequest; // This will be generated after build
 import com.pm.medicalrecordservice.grpc.MedicalRecordResponse; // This will be generated after build
-//import com.pm.medicalrecordservice.grpc.MedicalRecordGrpc; // Expected name
+import com.pm.medicalrecordservice.grpc.MedicalRecord; // Corrected name
 
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.stereotype.Service;
