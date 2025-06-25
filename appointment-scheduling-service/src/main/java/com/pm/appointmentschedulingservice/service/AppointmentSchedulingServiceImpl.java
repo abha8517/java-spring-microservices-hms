@@ -11,10 +11,11 @@ import com.pm.appointmentschedulingservice.grpc.ListAppointmentsForPatientReques
 import com.pm.appointmentschedulingservice.grpc.ListAppointmentsForDoctorRequest;
 import com.pm.appointmentschedulingservice.grpc.AppointmentResponse;
 import com.pm.appointmentschedulingservice.grpc.ListAppointmentsResponse;
-import com.pm.appointmentschedulingservice.grpc.Appointment; // Corrected to match proto definition
+//import com.pm.appointmentschedulingservice.grpc.Appointment; // Corrected to match proto definition
 
 import com.google.protobuf.Timestamp;
 import io.grpc.stub.StreamObserver;
+import net.devh.boot.grpc.server.service.GrpcService;
 import org.lognet.springboot.grpc.GRpcService; // Updated import for GrpcService
 
 import java.time.Instant;
@@ -70,9 +71,9 @@ public class AppointmentSchedulingServiceImpl extends AppointmentSchedulingServi
                 if (!request.getStatus().isEmpty()) {
                     existingAppointment.setStatus(request.getStatus());
                 }
-                if (request.hasNotes()) { // Check if notes field is set in proto
+                /*if (request.hasNotes()) { // Check if notes field is set in proto
                     existingAppointment.setNotes(request.getNotes());
-                }
+                }*/
                 existingAppointment.setUpdatedAt(LocalDateTime.now());
                 return appointmentRepository.save(existingAppointment);
             })

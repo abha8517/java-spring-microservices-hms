@@ -1,9 +1,10 @@
 package com.pm.patientservice.grpc;
 
+import com.pm.appointmentschedulingservice.grpc.Appointment;
 import com.pm.appointmentschedulingservice.grpc.AppointmentSchedulingServiceGrpc;
 import com.pm.appointmentschedulingservice.grpc.ListAppointmentsForPatientRequest; // Generated
 import com.pm.appointmentschedulingservice.grpc.ListAppointmentsResponse; // Generated
-import com.pm.appointmentschedulingservice.grpc.AppointmentGrpc; // Expected name
+//import com.pm.appointmentschedulingservice.grpc.AppointmentGrpc; // Expected name
 
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ public class AppointmentSchedulingServiceGrpcClient {
     @GrpcClient("appointment-scheduling-service")
     private AppointmentSchedulingServiceGrpc.AppointmentSchedulingServiceBlockingStub appointmentSchedulingServiceStub;
 
-    public List<AppointmentGrpc> getAppointmentsForPatient(String patientId) {
+    public List<Appointment> getAppointmentsForPatient(String patientId) {
         ListAppointmentsForPatientRequest request = ListAppointmentsForPatientRequest.newBuilder().setPatientId(patientId).build();
         try {
             ListAppointmentsResponse response = appointmentSchedulingServiceStub.listAppointmentsForPatient(request);

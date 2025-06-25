@@ -7,9 +7,10 @@ import com.pm.medicalrecordservice.grpc.CreateMedicalRecordRequest;
 import com.pm.medicalrecordservice.grpc.GetMedicalRecordRequest;
 import com.pm.medicalrecordservice.grpc.UpdateMedicalRecordRequest;
 import com.pm.medicalrecordservice.grpc.MedicalRecordResponse;
-import com.pm.medicalrecordservice.grpc.MedicalRecord; // Corrected to match proto definition
+//import com.pm.medicalrecordservice.grpc.MedicalRecord; // Corrected to match proto definition
 
 import io.grpc.stub.StreamObserver;
+import net.devh.boot.grpc.server.service.GrpcService;
 import org.lognet.springboot.grpc.GRpcService; // Updated import for GrpcService
 import java.time.LocalDateTime;
 import java.util.UUID;

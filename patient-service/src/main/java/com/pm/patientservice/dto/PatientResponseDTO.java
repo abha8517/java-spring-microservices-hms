@@ -1,7 +1,9 @@
 package com.pm.patientservice.dto;
 
-import com.pm.medicalrecordservice.grpc.MedicalRecordGrpc;
-import com.pm.appointmentschedulingservice.grpc.AppointmentGrpc;
+import com.pm.appointmentschedulingservice.grpc.Appointment;
+import com.pm.medicalrecordservice.grpc.MedicalRecord;
+//import com.pm.medicalrecordservice.grpc.MedicalRecordGrpc;
+//import com.pm.appointmentschedulingservice.grpc.AppointmentGrpc;
 import java.util.List;
 
 public class PatientResponseDTO {
@@ -51,12 +53,12 @@ public class PatientResponseDTO {
     this.dateOfBirth = dateOfBirth;
   }
 
-    private List<MedicalRecordGrpc> medicalRecords;
-    private List<AppointmentGrpc> appointments;
+    private List<MedicalRecord> medicalRecords;
+    private List<Appointment> appointments;
 
     // Getters and Setters for new fields
-    public List<MedicalRecordGrpc> getMedicalRecords() { return medicalRecords; }
-    public void setMedicalRecords(List<MedicalRecordGrpc> medicalRecords) { this.medicalRecords = medicalRecords; }
-    public List<AppointmentGrpc> getAppointments() { return appointments; }
-    public void setAppointments(List<AppointmentGrpc> appointments) { this.appointments = appointments; }
+    public List<MedicalRecord> getMedicalRecords() { return medicalRecords; }
+    public void setMedicalRecords(List<MedicalRecord> medicalRecords) { this.medicalRecords = medicalRecords; }
+    public List<Appointment> getAppointments() { return appointments; }
+    public void setAppointments(List<Appointment> appointments) { this.appointments = appointments; }
 }

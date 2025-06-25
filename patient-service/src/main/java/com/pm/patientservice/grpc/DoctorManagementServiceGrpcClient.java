@@ -1,9 +1,10 @@
 package com.pm.patientservice.grpc;
 
+import com.pm.doctormanagementservice.grpc.Doctor;
 import com.pm.doctormanagementservice.grpc.DoctorManagementServiceGrpc;
 import com.pm.doctormanagementservice.grpc.GetDoctorRequest; // Generated
 import com.pm.doctormanagementservice.grpc.DoctorResponse; // Generated
-import com.pm.doctormanagementservice.grpc.DoctorGrpc; // Expected name
+//import com.pm.doctormanagementservice.grpc.DoctorGrpc; // Expected name
 
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ public class DoctorManagementServiceGrpcClient {
     @GrpcClient("doctor-management-service")
     private DoctorManagementServiceGrpc.DoctorManagementServiceBlockingStub doctorManagementServiceStub;
 
-    public DoctorGrpc getDoctorById(String doctorId) {
+    public Doctor getDoctorById(String doctorId) {
         GetDoctorRequest request = GetDoctorRequest.newBuilder().setId(doctorId).build();
         try {
             DoctorResponse response = doctorManagementServiceStub.getDoctor(request);
