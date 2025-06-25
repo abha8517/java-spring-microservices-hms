@@ -1,13 +1,14 @@
 package com.pm.medicalrecordservice;
 
-// import org.springframework.boot.SpringApplication;
-// import org.springframework.boot.autoconfigure.SpringBootApplication;
+package com.pm.medicalrecordservice;
 
-// @SpringBootApplication
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
 public class MedicalRecordServiceApplication {
 
     public static void main(String[] args) {
-        // SpringApplication.run(MedicalRecordServiceApplication.class, args);
-        System.out.println("Medical Record Service Application Placeholder"); // Placeholder
+        SpringApplication.run(MedicalRecordServiceApplication.class, args);
     }
 }

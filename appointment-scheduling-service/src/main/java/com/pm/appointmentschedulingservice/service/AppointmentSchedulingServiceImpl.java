@@ -11,11 +11,11 @@ import com.pm.appointmentschedulingservice.grpc.ListAppointmentsForPatientReques
 import com.pm.appointmentschedulingservice.grpc.ListAppointmentsForDoctorRequest;
 import com.pm.appointmentschedulingservice.grpc.AppointmentResponse;
 import com.pm.appointmentschedulingservice.grpc.ListAppointmentsResponse;
-import com.pm.appointmentschedulingservice.grpc.AppointmentGrpc; // Expected generated class
+import com.pm.appointmentschedulingservice.grpc.Appointment; // Corrected to match proto definition
 
 import com.google.protobuf.Timestamp;
 import io.grpc.stub.StreamObserver;
-import net.devh.boot.grpc.server.service.GrpcService;
+import org.lognet.springboot.grpc.GRpcService; // Updated import for GrpcService
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -130,11 +130,11 @@ public class AppointmentSchedulingServiceImpl extends AppointmentSchedulingServi
         responseObserver.onCompleted();
     }
 
-    private AppointmentGrpc convertToGrpc(Appointment appointment) {
+    private com.pm.appointmentschedulingservice.grpc.Appointment convertToGrpc(com.pm.appointmentschedulingservice.domain.Appointment appointment) {
         Instant instant = appointment.getAppointmentTime().toInstant(ZoneOffset.UTC);
         Timestamp timestamp = Timestamp.newBuilder().setSeconds(instant.getEpochSecond()).setNanos(instant.getNano()).build();
 
-        return AppointmentGrpc.newBuilder()
+        return com.pm.appointmentschedulingservice.grpc.Appointment.newBuilder()
                 .setId(appointment.getId())
                 .setPatientId(appointment.getPatientId())
                 .setDoctorId(appointment.getDoctorId())

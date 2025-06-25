@@ -2,6 +2,8 @@ server:
   port: 4004 # Gateway listens on port 4004
 
 spring:
+  application:
+    name: api-gateway
   cloud:
     gateway:
       routes:
@@ -84,3 +86,19 @@ spring:
             - Path=/api-docs/appointment-scheduling
           filters:
             - RewritePath=/api-docs/appointment-scheduling,/v3/api-docs
+
+# OpenTelemetry Configuration
+otel:
+  sdk:
+    disabled: false
+  traces:
+    exporter: otlp
+  exporter:
+    otlp:
+      protocol: http/protobuf # Or grpc if you prefer and configure Jaeger for gRPC port 4317
+      traces:
+        endpoint: http://localhost:4318/v1/traces # Default OTLP HTTP endpoint
+  metrics:
+    exporter: none
+  service:
+    name: ${spring.application.name}

@@ -9,10 +9,10 @@ import com.pm.doctormanagementservice.grpc.UpdateDoctorRequest;
 import com.pm.doctormanagementservice.grpc.ListDoctorsRequest;
 import com.pm.doctormanagementservice.grpc.DoctorResponse;
 import com.pm.doctormanagementservice.grpc.ListDoctorsResponse;
-import com.pm.doctormanagementservice.grpc.DoctorGrpc; // Expected generated class
+import com.pm.doctormanagementservice.grpc.Doctor; // Corrected to match proto definition
 
 import io.grpc.stub.StreamObserver;
-import net.devh.boot.grpc.server.service.GrpcService;
+import org.lognet.springboot.grpc.GRpcService; // Updated import for GrpcService
 import java.time.LocalDateTime;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -86,8 +86,8 @@ public class DoctorManagementServiceImpl extends DoctorManagementServiceGrpc.Doc
         responseObserver.onCompleted();
     }
 
-    private DoctorGrpc convertToGrpc(Doctor doctor) {
-        return DoctorGrpc.newBuilder()
+    private com.pm.doctormanagementservice.grpc.Doctor convertToGrpc(com.pm.doctormanagementservice.domain.Doctor doctor) {
+        return com.pm.doctormanagementservice.grpc.Doctor.newBuilder()
                 .setId(doctor.getId())
                 .setName(doctor.getName())
                 .setSpecialization(doctor.getSpecialization())

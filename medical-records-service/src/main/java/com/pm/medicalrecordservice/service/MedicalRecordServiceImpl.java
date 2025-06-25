@@ -7,10 +7,10 @@ import com.pm.medicalrecordservice.grpc.CreateMedicalRecordRequest;
 import com.pm.medicalrecordservice.grpc.GetMedicalRecordRequest;
 import com.pm.medicalrecordservice.grpc.UpdateMedicalRecordRequest;
 import com.pm.medicalrecordservice.grpc.MedicalRecordResponse;
-import com.pm.medicalrecordservice.grpc.MedicalRecordGrpc; // Corrected typo from MedicalRecord to MedicalRecordGprc if that's the generated name
+import com.pm.medicalrecordservice.grpc.MedicalRecord; // Corrected to match proto definition
 
 import io.grpc.stub.StreamObserver;
-import net.devh.boot.grpc.server.service.GrpcService;
+import org.lognet.springboot.grpc.GRpcService; // Updated import for GrpcService
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -73,8 +73,8 @@ public class MedicalRecordServiceImpl extends MedicalRecordServiceGrpc.MedicalRe
             });
     }
 
-    private MedicalRecordGrpc convertToGrpc(MedicalRecord medicalRecord) {
-        return MedicalRecordGrpc.newBuilder()
+    private com.pm.medicalrecordservice.grpc.MedicalRecord convertToGrpc(com.pm.medicalrecordservice.domain.MedicalRecord medicalRecord) {
+        return com.pm.medicalrecordservice.grpc.MedicalRecord.newBuilder()
                 .setId(medicalRecord.getId())
                 .setPatientId(medicalRecord.getPatientId())
                 .setRecordDetails(medicalRecord.getRecordDetails())
